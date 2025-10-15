@@ -12,13 +12,14 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "task")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Task {
 
-    @Column
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Id
+    @GeneratedValue( strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(length = 40, nullable = false)
     private String name;

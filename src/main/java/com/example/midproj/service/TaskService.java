@@ -17,9 +17,14 @@ public class TaskService {
     private final TaskRepository taskRepository;
 
     public Task create_task(TaskDTO taskDTO) {
-        Task task = new Task(
-                task
-        );
+        Task task = new Task();
+        task.setDeadline(taskDTO.getDeadline());
+        task.setName(taskDTO.getName());
+        task.setDescription(taskDTO.getDescription());
+
+        taskRepository.save(task);
+
+        return task;
     }
 
     public List<Task> get_all(){
@@ -27,19 +32,28 @@ public class TaskService {
     }
 
     public Task get_task_by_id(Long task_id){
-        return taskRepository.getReferenceById(task_id);
+        return taskRepository.getTaskById(task_id);
     }
 
-    public boolean update_task(Long task_id, TaskDTO){
-        Task task = taskRepository.getReferenceById(task_id);
+    public boolean update_task(Long task_id, TaskDTO taskDTO){
+        try{
+            Task task = taskRepository.getTaskById(task_id);
+            task.setDescription(taskDTO.getDescription());
+            task.setName(taskDTO.getDescription());
+            task.setName(task.getName());
 
+            taskRepository.save(task);
+            return true;
+        } catch (RuntimeException e){
+            return false;
+        }
 
     }
 
     @Transactional
     public boolean delete_task(Long task_id){
         try {
-            Task task = taskRepository.getReferenceById(task_id);
+            Task task = taskRepository.getTaskById(task_id);
             taskRepository.delete(task);
             return true;
         } catch (RuntimeException e){
