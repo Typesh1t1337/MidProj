@@ -1,0 +1,21 @@
+
+
+services:
+  database:
+    container_name: mid_pg
+    image: postgres:17
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: arnur
+      POSTGRES_PASSWORD: BLOCKCBLCK2009
+      POSTGRES_DB: postgres_db
+    volumes:
+      - database_data:/var/lib/postgresql/data
+
+
+
+
+
+volumes:
+  database_data:
